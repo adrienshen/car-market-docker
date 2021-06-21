@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "rootDir": "./",
+        "outDir": "./build",
+        "allowJs": true,
+        "module": "commonjs",
+        "target": "es2019",
+        "lib": [
+            "es2020"
+        ]
+    },
+    "include": [
+        "./**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "build",
+        "dev",
+        "public"
+    ]
+}
