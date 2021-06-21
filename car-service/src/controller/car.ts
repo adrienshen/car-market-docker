@@ -28,8 +28,8 @@ export async function getOneCar(ctx: CustomContext) {
 }
 
 export async function getCars(ctx: CustomContext) {
-    ctx.checkQuery('make').optional().isAlpha();
-    ctx.checkQuery('model').optional().isAlpha();
+    ctx.checkQuery('make').optional().isAlphanumeric();
+    ctx.checkQuery('model').optional().isAlphanumeric();
     ctx.checkQuery('color').optional().isAlpha();
     ctx.checkQuery('category').optional().isAlpha();
     ctx.checkQuery('mileage_gt').optional().isNumeric();

@@ -28,4 +28,4 @@ const server = app.listen(PORT, () => {
     log.info(`Server listening on port: ${process.env.PORT || PORT}`);
 });
 
-module.exports = server;
+export default server;
