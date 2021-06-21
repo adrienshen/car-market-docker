@@ -9,6 +9,7 @@ const express = require('express');
 const router = express.Router();
 
 import * as CarService from '../services/cars';
+import logger from '../logger';
 
 function validateParams(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);
@@ -55,8 +56,7 @@ router.get('/cars',
     try {
       const acceptedQueries = ['make', 'model', 'color', 'package', 'year', 'mileage_gt', 'mileage_lt', 'price_cents_gt', 'price_cents_lt'];
       const query: CarService.IGetListQuery = _.pick(req.query, acceptedQueries);
-      console.log('Got Params: ', query);
-  
+
       const cars: CarService.ICar[] | [] = await CarService.getList(query);
   
       res.json({
@@ -74,7 +74,7 @@ router.use(
       next(err);
     }
     await ErrorHandler.handleError(err);
-    console.log('error: ', err)
+    logger.error(err);
     if (!err.httpCode) return next(err);
     // if error is expected and operation, then return the error code to client
     res.status(err.httpCode).send(err.name);
