@@ -19,6 +19,12 @@ function validateParams(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
+router.get('/health_check', (req, res) => {
+  res.json({
+    result: 'all good!',
+  });
+});
+
 router.get('/cars/:id',
   [
     param('id').isAlphanumeric(),
