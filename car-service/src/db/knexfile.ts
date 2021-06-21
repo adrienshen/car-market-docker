@@ -21,5 +21,15 @@ export default {
         connection: process.env.POSTGRES_DEV_DB_STRING,
         migrations,
         seeds,
+    },
+    staging: {
+        client: 'pg',
+        connection: process.env.POSTGRES_DEV_DB_STRING,
+        migrations,
+        seeds,
+        pool: {
+            min: 0,
+            max: 8
+        }
     }
 }
