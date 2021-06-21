@@ -26,7 +26,6 @@ test('GET: /v1/cars works', async done => {
 test('GET: v1/cars?make=Toyota&model=Rav4 works', async done => {
     return request(server).get('/v1/cars?make=Toyota&model=Rav4')
         .then(response => {
-            console.log('Does response work??? ', response.statusCode, response.body);
             expect(response.status).toBe(200);
             expect(response.body.length).toBe(1);
             expect(response.text).toMatchSnapshot();
@@ -38,7 +37,6 @@ test('GET: v1/cars?make=Toyota&model=Rav4 works', async done => {
 test('GET: v1/cars?make=Toyota&model=Rav4?mileage_lt=9000 should not return results', async done => {
     return request(server).get('/v1/cars?make=Toyota&model=Rav4&mileage_lt=9000')
         .then(response => {
-            console.log('>>> ', response.statusCode, response.body);
             expect(response.status).toBe(404);
             expect(response.body.length).toBe(0);
             done();

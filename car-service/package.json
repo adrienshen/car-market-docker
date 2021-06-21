@@ -5,7 +5,7 @@
     "scripts": {
         "start": "NODE_ENV=staging node ./dist/server/index.js",
         "dev": "nodemon --watch src -e ts,js --exec ts-node src/index.ts",
-        "test": "echo 'to be implemented'",
+        "test": "jest",
         "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
         "build:ts": "tsc",
         "build": "NODE_ENV=staging npm run build:ts",
