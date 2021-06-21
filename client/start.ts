@@ -1,3 +1,4 @@
+require('dotenv').config();
 const http = require('http');
 const stoppable = require('stoppable');
 const ConsoleHrTime = require('console-hrtime');
@@ -5,9 +6,6 @@ const timer = new ConsoleHrTime();
 timer.start('init');
 
 import logger from './src/logger';
-
-require('dotenv').config();
-
 import app from './src/app';
 import ErrorHandler from './src/errors/handler';
 const LOG_ID = 'APP';
@@ -20,7 +18,7 @@ function startServer(app) {
   process.on('uncaughtException', (error: Error) => {
     ErrorHandler.handleError(error);
     if (!ErrorHandler.isTrustedError(error)) {
-      console.log('>>> Program error, exit now.');
+      logger.fatal('>>> Program error, exit now.');
       // The idea is that the docker container environment should restart the app in case of a unhandled
       // error crash
       process.exit(1);
@@ -44,7 +42,7 @@ function handleSigTerm(server) {
       process.exitCode = 1;
       process.exit();
     });
-  }, 5000);
+  }, 4000);
 }
 
 function logEndTime() {
