@@ -3,7 +3,7 @@ const expressLogger = require('morgan');
 const cors = require('cors');
 
 import logger from './logger';
-import APIV1Router from './routes/api';
+import APIRouter from './routes/api';
 
 logger.info(`Environment is: ${process.env.NODE_ENV}`);
 
@@ -17,6 +17,6 @@ app
   ))
 
 app
-  .use('/api/v1', APIV1Router)
+  .use('/api/v1', APIRouter)
 
 export default app;
