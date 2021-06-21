@@ -27,8 +27,16 @@ export interface ServiceResponseError {
   error: 'no results found'
 }
 
-export interface IGetListParams {
-
+export interface IGetListQuery {
+  make: string;
+  model: string;
+  package: string;
+  color: string;
+  year: number;
+  mileage_gt: number;
+  mileage_lt: number;
+  price_cents_gt: number;
+  price_cents_lt: number;
 }
 
 export async function getOne(id: string): Promise<ICar | null> {
@@ -37,19 +45,18 @@ export async function getOne(id: string): Promise<ICar | null> {
   }
   const { data: results, status } = await axios.get(`${process.env.CAR_SERVICE_URL}/${id}`);
   if (status !== 200) {
-    throw new APIError('Get Car by ID Failed');
+    throw new APIError('Get car by id failed');
   }
 
   return results;
 }
 
-export async function getList(params: IGetListParams): Promise<ICar[] | []> {
+export async function getList(query: IGetListQuery): Promise<ICar[] | []> {
+  logger.info('Car Query: ', query);
+  const { data: results, status } = await axios.get(`${process.env.CAR_SERVICE_URL}`, { params: query })
+  if (status !== 200) {
+    throw new APIError(`Get cars failed, query=${JSON.stringify(query)}`);
+  }
 
-
-  // return [
-  //   {
-  //     id: 'TjhP242'
-  //   }
-  // ]
-  return [];
+  return results;
 }
