@@ -1,0 +1,52 @@
+{
+    "name": "node-koa-api",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "NODE_ENV=staging node ./dist/server/index.js",
+        "dev": "nodemon --watch src -e ts,js --exec ts-node src/index.ts",
+        "test": "echo 'to be implemented'",
+        "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+        "build:ts": "tsc",
+        "build": "NODE_ENV=staging npm run build:ts",
+        "mi": "knex migrate:latest",
+        "md": "knex migrate:down",
+        "mu": "knex migrate:up",
+        "sr": "knex seed:run"
+    },
+    "engines": {
+        "node": "14.x.x",
+        "npm": "6.x.x"
+    },
+    "keywords": [],
+    "author": "Adrien Shen",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/bunyan": "^1.8.6",
+        "@types/jest": "^26.0.23",
+        "@types/koa-bodyparser": "^4.3.0",
+        "@types/koa-morgan": "^1.0.4",
+        "@types/koa-router": "^7.4.1",
+        "@types/lodash": "^4.14.170",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
+        "jest": "^26.6.3",
+        "ts-jest": "^26.5.6",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.2.3"
+    },
+    "dependencies": {
+        "bunyan": "^1.8.15",
+        "dotenv": "^8.2.0",
+        "knex": "^0.21.16",
+        "koa": "^2.13.1",
+        "koa-bodyparser": "^4.2.0",
+        "koa-morgan": "^1.0.1",
+        "koa-router": "^7.2.1",
+        "koa-static": "^5.0.0",
+        "koa-validate": "^1.0.7",
+        "lodash": "^4.17.21",
+        "morgan": "^1.10.0",
+        "pg": "^8.5.1"
+    }
+}
