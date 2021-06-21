@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "NODE_ENV=staging node ./dist/server/index.js",
+        "start": "NODE_ENV=staging node dist/index.js",
         "dev": "nodemon --watch src -e ts,js --exec ts-node src/index.ts",
         "test": "jest",
         "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
