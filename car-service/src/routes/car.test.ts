@@ -6,7 +6,7 @@ const request = supertest(server);
 
 afterEach(() => server.close());
 
-test('GET: /v1/cars/:id works', async done => {
+test('GET: /v1/cars/:id returns 1 result with id JHk290Xj', async done => {
     const response = await request.get('/v1/cars/JHk290Xj')
     console.log('response body: ', response.body);
     expect(response.status).toBe(200);
@@ -15,7 +15,7 @@ test('GET: /v1/cars/:id works', async done => {
     done();
 });
 
-test('GET: /v1/cars works', done => {
+test('GET: /v1/cars returns 4 results', done => {
     request.get('/v1/cars')
         .then(response => {
             expect(response.status).toBe(200);
@@ -26,7 +26,7 @@ test('GET: /v1/cars works', done => {
         .catch(err => done(err));
 });
 
-test('GET: v1/cars?make=Toyota&model=Rav4 works', done => {
+test('GET: v1/cars?make=Toyota&model=Rav4 return 1 result', done => {
     request.get('/v1/cars?make=Toyota&model=Rav4')
         .then(response => {
             expect(response.status).toBe(200);
