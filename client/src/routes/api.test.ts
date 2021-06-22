@@ -1,4 +1,3 @@
-// require('dotenv').config();
 import * as request from 'supertest';
 import server from '../app';
 
@@ -7,7 +6,7 @@ console.log('Environment: ', process.env.CAR_SERVICE_URL);
 // TODO: improvement: mock the car-service since it's already tested in the micro-service code
 jest.setTimeout(15000)
 
-test('GET: /v1/cars/:id returns correct data', () => {
+test('GET: /v1/cars/:id returns correct results', () => {
   return request(server).get('/api/v1/cars/JHk290Xj')
     .then(response => {
       expect(response.status).toBe(200);
@@ -17,7 +16,7 @@ test('GET: /v1/cars/:id returns correct data', () => {
     })
 });
 
-test('GET: /v1/cars?make=Toyota returns correct data', () => {
+test('GET: /v1/cars?make=Toyota returns correct results', () => {
   return request(server).get('/api/v1/cars?make=Toyota').then(response => {
     // console.log('response: ', response.body);
     expect(response.status).toBe(200);
@@ -26,7 +25,7 @@ test('GET: /v1/cars?make=Toyota returns correct data', () => {
   })
 });
 
-test('GET: /v1/cars?year=2018&mileage_gt=24000 returns correct data', () => {
+test('GET: /v1/cars?year=2018&mileage_gt=24000 returns correct results', () => {
   return request(server).get('/api/v1/cars?year=2018&mileage_gt=24000').then(response => {
     console.log('3. response: ', response.body);
     expect(response.status).toBe(200);
