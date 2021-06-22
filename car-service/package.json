@@ -10,10 +10,11 @@
         "build:ts": "tsc",
         "build:docker": "docker build -t samcart/car-service .",
         "build": "NODE_ENV=staging npm run build:ts",
-        "mi": "knex migrate:latest",
-        "md": "knex migrate:down",
-        "mu": "knex migrate:up",
-        "sr": "knex seed:run"
+        "prepdb": "npm run mi && npm run sr",
+	"mi": "cd src/db && knex migrate:latest",
+        "md": "cd src/db && knex migrate:down",
+        "mu": "cd src/db && knex migrate:up",
+        "sr": "cd src/db && knex seed:run"
     },
     "engines": {
         "node": "14.x.x",

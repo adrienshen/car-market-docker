@@ -8,6 +8,8 @@ Look inside `docker-compose.yml` for more information on each component.
 
 The entire stack can be run using `docker-compose build`, the `docker-compose up`. The client-api will be accessible on port 8080, such as `GET: http://localhost:8080/api/v1/cars?make=Toyota&color=White`. The service will be available on port 3000, for example: `http://localhost:3000/v1/cars?mileage_lt=5000`.
 
+If using postgres in docker, you might need to start the postgres container first with `docker-compose up db`, and create the database `car_db` if it doesn't get auto generated.
+
 The `car-service` connects with `postgres` running in docker container. There are migrations and seeds which can be run in the respective directory. If using `docker-compose`, the database migration and seeds will be run automatically during the startup phase (hopefully).
 
 `car-service` returns basic resource in json format in response to REST queries such as:

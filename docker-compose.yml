@@ -11,6 +11,20 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data/
 
+  migration:
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=staging
+      - POSTGRES_TEST_DB_STRING=postgres://postgres:password@db:5432/car_db_test
+      - POSTGRES_DEV_DB_STRING=postgres://postgres:password@db:5432/car_db
+    build:
+      context: ./car-service
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    command: npm run prepdb
+
   car-service:
     depends_on:
       - db
