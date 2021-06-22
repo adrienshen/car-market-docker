@@ -14,10 +14,10 @@ Prepare the database by running `knex migrate:latest`, and `knex seed:run` while
 
 ## Docker
 
-There is a docker-compose file which can be run with `docker-compose up`. It will run the postgres database, car-service, and web-client in containers and expose the web-client on port 8081.
+There is a docker-compose file in the root dir above this which can be run with `docker-compose up`. It will run the postgres database, car-service, and web-client in containers and expose the web-client on port 8080.
 
 ## Test
 
 Run jest supertest with `npm run test` or `jest`
 
-Tests are placed adjacent to files. In this project, we use supertest w. jest to test the routes as there's not many individual pure logic functions that can be unit tested.
+Tests are placed adjacent to files. In this project, we use supertest w. jest to integration test and snapshot the routes as there's not many individual pure logic functions that can be unit tested easily without mocking everything.
