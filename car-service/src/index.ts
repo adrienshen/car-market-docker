@@ -10,7 +10,6 @@ const log = bunyan.createLogger({ name: "App/index" });
 import carRouter from "./routes/car";
 
 const app = new Koa();
-const PORT = 3000;
 
 const accessLogStream = fs.createWriteStream(__dirname + "/access.log", { flags: "a" });
 
@@ -24,8 +23,4 @@ app
     .use(bodyParser())
     .use(carRouter.routes())
 
-const server = app.listen(PORT, () => {
-    log.info(`Server listening on port: ${process.env.PORT || PORT}`);
-});
-
-export default server;
+export default app;

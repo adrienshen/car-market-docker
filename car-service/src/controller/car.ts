@@ -34,14 +34,15 @@ export async function getCars(ctx: CustomContext) {
     ctx.checkQuery('category').optional().isAlpha();
     ctx.checkQuery('mileage_gt').optional().isNumeric();
     ctx.checkQuery('mileage_lt').optional().isNumeric();
-    ctx.checkQuery('mileage_gt').optional().isNumeric();
-    ctx.checkQuery('mileage_lt').optional().isNumeric();
+    ctx.checkQuery('price_cents_gt').optional().isNumeric();
+    ctx.checkQuery('price_cents_lt').optional().isNumeric();
+    ctx.checkQuery('year').optional().isNumeric();
     if (ctx.errors && ctx.errors.length) {
         ctx.body = ctx.errors[0];
         return;
     }
 
-    const params = ['make', 'model', 'color', 'category', 'mileage_gt', 'mileage_lt', 'mileage_gt', 'mileage_lt'];
+    const params = ['make', 'model', 'color', 'category', 'mileage_gt', 'mileage_lt', 'price_cents_gt', 'price_cents_lt', 'year'];
     const results = await CarQueries.list(_.pick(ctx.query, params));
     if (!results.length) {
         ctx.status = 404;

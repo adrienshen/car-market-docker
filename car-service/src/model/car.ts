@@ -20,6 +20,7 @@ export interface IFilters {
     model?: string;
     color?: string;
     category?: string;
+    year?: number;
     mileage_gt?: number;
     mileage_lt?: number;
     price_gt?: number;
@@ -53,6 +54,9 @@ export function list(filters: IFilters) {
     }
     if (filters.model) {
         query = query.where('model', filters.model);
+    }
+    if (filters.year) {
+        query = query.where('year', filters.year);
     }
     if (filters.mileage_gt || filters.mileage_lt) {
         query = query.whereBetween('mileage', [filters.mileage_gt || 0, filters.mileage_lt || MAX_MILES])

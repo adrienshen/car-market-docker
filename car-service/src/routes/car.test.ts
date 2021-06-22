@@ -1,19 +1,22 @@
-import request from 'supertest';
-import server from '../index';
+import server from "../start";
+import supertest from 'supertest';
+
+
+const request = supertest(server);
+
+afterEach(() => server.close());
 
 test('GET: /v1/cars/:id works', async done => {
-    return request(server).get('/v1/cars/JHk290Xj')
-        .then(response => {
-            expect(response.status).toBe(200);
-            expect(response.text).toMatchSnapshot();
-            expect(response.body.id).toBe('JHk290Xj');
-            done();
-        })
-        .catch(err => done(err))
+    const response = await request.get('/v1/cars/JHk290Xj')
+    console.log('response body: ', response.body);
+    expect(response.status).toBe(200);
+    expect(response.text).toMatchSnapshot();
+    expect(response.body.id).toBe('JHk290Xj');
+    done();
 });
 
-test('GET: /v1/cars works', async done => {
-    return request(server).get('/v1/cars')
+test('GET: /v1/cars works', done => {
+    request.get('/v1/cars')
         .then(response => {
             expect(response.status).toBe(200);
             expect(response.text).toMatchSnapshot();
@@ -23,8 +26,8 @@ test('GET: /v1/cars works', async done => {
         .catch(err => done(err));
 });
 
-test('GET: v1/cars?make=Toyota&model=Rav4 works', async done => {
-    return request(server).get('/v1/cars?make=Toyota&model=Rav4')
+test('GET: v1/cars?make=Toyota&model=Rav4 works', done => {
+    request.get('/v1/cars?make=Toyota&model=Rav4')
         .then(response => {
             expect(response.status).toBe(200);
             expect(response.body.length).toBe(1);
@@ -34,11 +37,23 @@ test('GET: v1/cars?make=Toyota&model=Rav4 works', async done => {
         .catch(err => done(err));
 });
 
-test('GET: v1/cars?make=Toyota&model=Rav4?mileage_lt=9000 should not return results', async done => {
-    return request(server).get('/v1/cars?make=Toyota&model=Rav4&mileage_lt=9000')
+test('GET: v1/cars?make=Toyota&model=Rav4?mileage_lt=9000 should not return results', done => {
+    request.get('/v1/cars?make=Toyota&model=Rav4&mileage_lt=9000')
         .then(response => {
             expect(response.status).toBe(404);
             expect(response.body.length).toBe(0);
+            done();
+        })
+        .catch(err => done(err));
+});
+
+test('GET: v1/cars?year=2019 should return 1 result with id fWI37la', done => {
+    request.get('/v1/cars?year=2019')
+        .then(response => {
+            expect(response.status).toBe(200);
+            expect(response.body.length).toBe(1);
+            expect(response.text).toMatchSnapshot();
+            expect(response.body[0].id).toBe('fWI37la');
             done();
         })
         .catch(err => done(err));
