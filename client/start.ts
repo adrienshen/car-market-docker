@@ -25,7 +25,7 @@ function startServer(app) {
     }
   });
 
-  logger.info(`${LOG_ID} Listening on port ${process.env.PORT || 8000}`);
+  logger.info(`${LOG_ID} Listening on port ${process.env.PORT || 8080}`);
   logEndTime();
 }
 

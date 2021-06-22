@@ -1,6 +1,6 @@
 FROM node:14.17.1-alpine
 
-EXPOSE 8000
+EXPOSE 8080
 
 # Install app dependencies
 RUN npm i npm@latest -g && npm cache clean --force
@@ -20,4 +20,4 @@ RUN npm run build
 HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \
   CMD curl -fs http://localhost:8000/status || exit 1
 
-CMD ["node","./build/app.js"]
+CMD ["node","./build/start.js"]

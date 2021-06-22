@@ -10,6 +10,7 @@ services:
       - database.env
     volumes:
       - database-data:/var/lib/postgresql/data/
+
   car-service:
     depends_on:
       - db
@@ -17,13 +18,35 @@ services:
       - NODE_ENV=staging
       - POSTGRES_TEST_DB_STRING=postgres://postgres:password@db:5432/car_db_test
       - POSTGRES_DEV_DB_STRING=postgres://postgres:password@db:5432/car_db
-    image: 'samcart/car-service:latest'
+    # image: 'samcart/car-service:latest'
+    build:
+      context: ./car-service
+      dockerfile: Dockerfile
     networks:
       - backend
     ports:
       - "3000:3000"
 
-  # add web-service
+  # comment out `api-client` below to use the `db` and `car-service` for development
+  # and run the api-client locally using `npm run dev`
+  api-client:
+    depends_on:
+      - db
+      - car-service
+    # image: "samcart/api-client:latest"
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=staging
+      - CAR_SERVICE_URL=http://car-service:3000/v1/cars
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+
+# TODO: in production, there might be another container to host nginx which sits in front of the the
+# api-client. Requests would be handled by nginx and reverse proxy to the relevant services or static files
 
 networks:
   backend:

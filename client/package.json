@@ -6,8 +6,9 @@
     "scripts": {
         "start": "npm run build && node ./build/start.js",
         "dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' start.ts",
-        "test": "jest --setupFiles dotenv/config",
-        "build": "rm -rf build && tsc && cp -a ./package.json ./build/package.json"
+        "test": "jest",
+        "build": "rm -rf build && tsc",
+        "build:docker": "docker build -t samcart/api-client ."
     },
     "dependencies": {
         "axios": "^0.21.1",
